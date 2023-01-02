@@ -8,17 +8,27 @@ public class _5 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = br.readLine();
-        String s = "";
-        int rt = str.length() - 1, lt = 0;
+        char[] ori = str.toCharArray();
 
-        for (int i = 0; i < str.length() / 2; i++) {
-            while (!Character.isAlphabetic(str.charAt(lt))) {
+        int lt = 0, rt = ori.length - 1;
+        for (int i = 0; i < ori.length; i++) {
+            while (!Character.isAlphabetic(ori[lt])) {
                 lt++;
             }
-            while (!Character.isAlphabetic(str.charAt(rt))) {
+            while (!Character.isAlphabetic(ori[rt])) {
                 rt--;
             }
+            if (rt < lt)
+                break;
+            char temp = ori[lt];
+            ori[lt] = ori[rt];
+            ori[rt] = temp;
+            lt++;
+            rt--;
+        }
 
+        for (char x : ori) {
+            System.out.print(x);
         }
     }
 }
