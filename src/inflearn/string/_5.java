@@ -30,5 +30,6 @@ public class _5 {
         for (char x : ori) {
             System.out.print(x);
         }
+
     }
 }
