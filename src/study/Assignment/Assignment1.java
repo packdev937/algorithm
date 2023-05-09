@@ -1,11 +1,11 @@
-package study;
+package study.Assignment;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.TreeSet;
 
-public class _01 {
+public class Assignment1 {
     static TreeSet<Integer> tSet = new TreeSet<>();
     static int[] D = new int[100001];
     static int lastNum;

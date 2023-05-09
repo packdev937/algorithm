@@ -1,4 +1,4 @@
-package study;
+package study.Assignment;
 
 import java.util.Scanner;
 
@@ -14,12 +14,11 @@ public class Assignment2 {
         while (true) {
             System.out.print(">> ");
             String input = scanner.nextLine().replaceAll(" ", "");
-            System.out.println(input);
             if (a.validateString(input)) {
                 System.out.println("Invalid Character is entered");
-                ;
                 continue;
             }
+
             if (input.contains("=") || input.contains("<") || input.contains(">"))
                 isBexpr = true;
             else isBexpr = false;
@@ -28,10 +27,13 @@ public class Assignment2 {
                 break;
             }
 
+            // index와 input을 초기화
             a.setInput(input);
             try {
                 Object result = a.expr();
                 System.out.println(result);
+            } catch (ArithmeticException e) {
+                System.out.println("arithmetic exception!!");
             } catch (Exception e) {
                 System.out.println("syntax error!!");
             }
@@ -41,9 +43,21 @@ public class Assignment2 {
     }
 
     public boolean validateString(String input) {
-        if (input.contains("_") || input.contains("@") || input.contains("#") || input.contains("$") || input.contains("%") || input.contains("^") || input.contains("&")) {
+        if (input.contains("_") || input.contains("@") || input.contains("#") ||
+                input.contains("$") || input.contains("%") || input.contains("^") ||
+                input.contains("&") || input.contains("~")) {
             return true;
-        } else return false;
+        } else {
+            for (int i = 0; i < input.length(); i++) {
+                char ch = input.charAt(i);
+                if (ch == '!') {
+                    if (i + 1 >= input.length() || input.charAt(i + 1) != '=') {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 
     public void setInput(String input) {
@@ -62,10 +76,8 @@ public class Assignment2 {
     public Object bexpr() throws Exception {
         int left = aexpr();
         String relop = relop();
-        System.out.println(input.charAt(index));
         int right = aexpr();
 
-        System.out.println(left + " " + right);
         switch (relop) {
             case "==":
                 return left == right;
@@ -85,17 +97,17 @@ public class Assignment2 {
     }
 
     public String relop() {
-        if (consume("==")) {
+        if (checkString("==")) {
             return "==";
-        } else if (consume("!=")) {
+        } else if (checkString("!=")) {
             return "!=";
-        } else if (consume("<")) {
+        } else if (checkString("<")) {
             return "<";
-        } else if (consume(">")) {
+        } else if (checkString(">")) {
             return ">";
-        } else if (consume("<=")) {
+        } else if (checkString("<=")) {
             return "<=";
-        } else if (consume(">=")) {
+        } else if (checkString(">=")) {
             return ">=";
         } else {
             throw new RuntimeException("Invalid relop");
@@ -105,9 +117,9 @@ public class Assignment2 {
     public int aexpr() throws Exception {
         int result = term();
         while (true) {
-            if (consume("*")) {
+            if (checkString("*")) {
                 result *= term();
-            } else if (consume("/")) {
+            } else if (checkString("/")) {
                 result /= term();
             } else {
                 break;
@@ -119,9 +131,9 @@ public class Assignment2 {
     public int term() throws Exception {
         int result = factor();
         while (true) {
-            if (consume("+")) {
+            if (checkString("+")) {
                 result += factor();
-            } else if (consume("-")) {
+            } else if (checkString("-")) {
                 result -= factor();
             } else {
                 break;
@@ -131,11 +143,11 @@ public class Assignment2 {
     }
 
     public int factor() throws Exception {
-        if (consume("(")) {
+        if (checkString("(")) {
             int result = aexpr();
-            match(")");
+            matchString(")");
             return result;
-        } else if (consume(")")) {
+        } else if (checkString(")")) {
             throw new RuntimeException(") should be appeared behind of (");
         } else {
             return number();
@@ -153,13 +165,13 @@ public class Assignment2 {
         return result;
     }
 
-    private void match(String s) {
-        if (!consume(s)) {
+    private void matchString(String s) {
+        if (!checkString(s)) {
             throw new RuntimeException("Expected '" + s + "'");
         }
     }
 
-    private boolean consume(String s) {
+    private boolean checkString(String s) {
         if (input.startsWith(s, index)) {
             index += s.length();
             return true;
