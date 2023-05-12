@@ -9,61 +9,66 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class _1389 {
-    static int[][] ch;
-    static int N, M, minNum, min = 9999;
-    static ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+    static ArrayList<Integer>[] graph;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        ch = new int[N + 1][N + 1];
 
-        for (int i = 0; i < N + 1; i++) {
-            graph.add(new ArrayList<>());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+
+        int minBacon = Integer.MAX_VALUE;
+        int minPerson = 0;
+
+        graph = new ArrayList[N + 1];
+        for (int i = 1; i <= N; i++) {
+            graph[i] = new ArrayList<>();
         }
 
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-
-            graph.get(a).add(b);
-            graph.get(b).add(a);
+            graph[a].add(b);
+            graph[b].add(a);
         }
 
-        for (int i = 0; i < N; i++) {
-            BFS(i + 1);
+        for (int i = 1; i <= N; i++) {
+            int bacon = calculateBacon(i, N);
+            if (bacon < minBacon) {
+                minBacon = bacon;
+                minPerson = i;
+            }
         }
 
-        System.out.println(minNum);
+        System.out.println(minPerson);
     }
 
-    public static void BFS(int i) {
-        Queue<Integer> Q = new LinkedList<>();
-        Q.add(i);
-        int num = 0;
-        int cnt = 0;
-        while (!Q.isEmpty()) {
-            int temp = Q.poll();
-            ch[i][temp] = 1;
-            cnt++;
-            for (int j = 0; j < graph.get(temp).size(); j++) {
-                int n = graph.get(temp).get(j);
-                if (ch[i][n] != 1) {
-                    Q.add(n);
-                    num += cnt;
+    public static int calculateBacon(int start, int N) {
+        boolean[] visited = new boolean[N + 1];
+        int[] bacon = new int[N + 1];
+
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(start);
+        visited[start] = true;
+
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+
+            for (int neighbor : graph[current]) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    queue.offer(neighbor);
+                    bacon[neighbor] = bacon[current] + 1;
                 }
             }
         }
-        System.out.println(i + "," + num);
-        if (num < min) {
-            min = num;
-            minNum = i;
-        } else if (num == min) {
-            if (minNum > i)
-                minNum = i;
+
+        int sum = 0;
+        for (int i = 1; i <= N; i++) {
+            sum += bacon[i];
         }
+        return sum;
     }
 }
