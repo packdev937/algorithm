@@ -56,7 +56,7 @@ public class _1043 {
 
         for (int k = 0; k < M; k++) {
             for (int i = 0; i < M; i++) {
-                int P = party.get(i).get(0);
+                int P   = party.get(i).get(0);
                 boolean isTruth = false;
                 int temp = 0;
 
