@@ -1,30 +1,48 @@
 package study.Assignment;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Assignment3 {
+    static boolean isException;
     private String input;
     private static int index;
     private Map<String, Integer> variables = new HashMap<>();
+
+    private static Deque<Integer> dq;
+    private static Stack<String> stack;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Assignment3 a = new Assignment3();
 
         while (true) {
+            // Initialization
+            dq = new ArrayDeque<>();
+            isException = false;
+            stack = new Stack<String>();
+
             System.out.print(">> ");
             String input = scanner.nextLine().replaceAll(" ", "");
             if (input.isEmpty()) {
                 break;
             }
-
             a.setInput(input);
             try {
-                a.program();
+                if (input.length() == 1)
+                    throw new RuntimeException("Syntax Error!");
+                else {
+                    a.program();
+                }
             } catch (Exception e) {
+                isException = true;
                 System.out.println("Syntax Error!");
+            } finally {
+                if (!isException) {
+                    while (!dq.isEmpty()) {
+                        System.out.print(dq.pollFirst()+" ");
+                    }
+                    System.out.println();
+                }
             }
         }
 
@@ -58,11 +76,33 @@ public class Assignment3 {
         if (checkString("print")) {
             int result = aexpr();
             matchString(";");
-            System.out.println(result);
+            dq.addLast(result);
         } else if (checkString("while")) {
             matchString("(");
             int initialIndex = index;
             int endIndex = index;
+
+            // endIndex를 매핑
+            while (!checkString("{")) {
+                index++;
+            }
+            stack.push("{");
+            while (index<=input.length()) {
+                if (checkString("{"))
+                    stack.push("{");
+                else if (checkString("}"))
+                    stack.pop();
+                else{
+                    index++;
+                }
+                if(stack.isEmpty())
+                    break;
+            }
+            if(!stack.isEmpty()){
+                throw new RuntimeException("Syntax Error!");
+            }
+            endIndex = index;
+            index = initialIndex;
             while (bexpr()) {
                 matchString(")");
                 matchString("{");
@@ -82,7 +122,6 @@ public class Assignment3 {
             }
         }
     }
-
 
     public boolean bexpr() throws Exception {
         int left = aexpr();
@@ -110,16 +149,16 @@ public class Assignment3 {
     public String relop() {
         if (checkString("==")) {
             return "==";
+        } else if (checkString("<=")) {
+            return "<=";
+        } else if (checkString(">=")) {
+            return ">=";
         } else if (checkString("!=")) {
             return "!=";
         } else if (checkString("<")) {
             return "<";
         } else if (checkString(">")) {
             return ">";
-        } else if (checkString("<=")) {
-            return "<=";
-        } else if (checkString(">=")) {
-            return ">=";
         } else {
             throw new RuntimeException("Invalid relop");
         }
