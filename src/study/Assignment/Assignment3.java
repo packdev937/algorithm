@@ -30,6 +30,8 @@ public class Assignment3 {
             try {
                 if (input.length() == 1)
                     throw new RuntimeException("Syntax Error!");
+                else if (input.charAt(input.length()-1) != ';')
+                    throw new RuntimeException("Syntax Error!");
                 else {
                     a.program();
                 }
