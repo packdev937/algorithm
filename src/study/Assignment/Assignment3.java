@@ -10,6 +10,7 @@ public class Assignment3 {
 
     private static Deque<Integer> dq;
     private static Stack<String> stack;
+    // private static boolean isWhileExecuted = false;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -28,9 +29,7 @@ public class Assignment3 {
             }
             a.setInput(input);
             try {
-                if (input.length() == 1)
-                    throw new RuntimeException("Syntax Error!");
-                else if (input.charAt(input.length()-1) != ';')
+                if (Character.isAlphabetic(input.charAt(input.length() - 1)))
                     throw new RuntimeException("Syntax Error!");
                 else {
                     a.program();
@@ -41,7 +40,7 @@ public class Assignment3 {
             } finally {
                 if (!isException) {
                     while (!dq.isEmpty()) {
-                        System.out.print(dq.pollFirst()+" ");
+                        System.out.print(dq.pollFirst() + " ");
                     }
                     System.out.println();
                 }
@@ -89,23 +88,24 @@ public class Assignment3 {
                 index++;
             }
             stack.push("{");
-            while (index<=input.length()) {
+            while (index <= input.length()) {
                 if (checkString("{"))
                     stack.push("{");
                 else if (checkString("}"))
                     stack.pop();
-                else{
+                else {
                     index++;
                 }
-                if(stack.isEmpty())
+                if (stack.isEmpty())
                     break;
             }
-            if(!stack.isEmpty()){
+            if (!stack.isEmpty()) {
                 throw new RuntimeException("Syntax Error!");
             }
             endIndex = index;
             index = initialIndex;
-            while (bexpr()) {
+            boolean isExecuted;
+            while (isExecuted = bexpr()) {
                 matchString(")");
                 matchString("{");
                 while (!checkString("}")) {
@@ -113,6 +113,32 @@ public class Assignment3 {
                 }
                 endIndex = index;
                 index = initialIndex;
+            }
+//             만약 while문 안에 있는 statement이 에러면 에러
+//             맞다고 해도 그것을 출력하면 안되기 때문에 다시 빼줌
+            Map<String, Integer> temp = new HashMap<>();
+            for (String key : variables.keySet()) {
+                temp.put(key, variables.get(key));
+            }
+            int len = dq.size();
+            if (!isExecuted) {
+                try {
+                    matchString(")");
+                    matchString("{");
+                    while (!checkString("}")) {
+                        statement();
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException("Syntax Error!");
+                } finally {
+                    for (int i = 0; i < dq.size() - len; i++) {
+                        dq.pollLast();
+                    }
+                    for (String key : variables.keySet()) {
+                        variables.put(key, temp.get(key));
+                    }
+                    endIndex = index;
+                }
             }
             index = endIndex;
         } else {
