@@ -18,34 +18,11 @@ public class _5904 {
         //  n의 범위를 구해주기
         while (length < N) {
             k++;
-            prev = length;
+//            prev = length;
             length = 2 * prev + (1 + 2 + k); // S(K-1) * 2 + (moo...o)
         }
 
-        if (k == 0) { // K가 0, 즉, while 문이 한번도 실행되지 않았으며 길이가 3 이하
-            if (N == 1) {
-                System.out.print('m');
-                return;
-            } else {
-                System.out.print('o');
-                return;
-            }
-        } else {
-            if (N <= prev) {
-                Moo(prev, k - 1);
-            } else if (prev + 1 <= N && N < prev + (1 + 2 + k)) { // prev + (moo...o)
-                if (prev + 1 == N) {
-                    System.out.print('m');
-                    return;
-                } else {
-                    System.out.print('o');
-                    return;
-                }
-            } else { // 앞 쪽에 있거나 뒤 쪽에 있는 경우
-                N -= (prev + (1 + 2 + k));
-                Moo(prev, k - 1);
-            }
-        }
+        Moo(length, k);
     }
 
     private static void Moo(int length, int k) {
