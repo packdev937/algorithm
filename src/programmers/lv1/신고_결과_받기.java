@@ -12,7 +12,6 @@ public class 신고_결과_받기 {
         // 중복 제거
         HashSet<String> set = new HashSet<>(Arrays.asList(report));
         report = set.toArray(new String[0]);
-
         // 아이디별 신고 횟수 저장
         HashMap<String, Integer> reportCounts = new HashMap<>();
         for (String r : report) {
