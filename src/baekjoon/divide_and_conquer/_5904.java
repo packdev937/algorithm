@@ -18,7 +18,7 @@ public class _5904 {
         //  n의 범위를 구해주기
         while (length < N) {
             k++;
-//            prev = length;
+            prev = length;
             length = 2 * prev + (1 + 2 + k); // S(K-1) * 2 + (moo...o)
         }
 
