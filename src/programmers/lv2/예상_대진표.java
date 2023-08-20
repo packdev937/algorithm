@@ -11,7 +11,6 @@ public class 예상_대진표 {
     private static Queue<Integer> q = new LinkedList<>();
 
     public static int solution(int n, int a, int b) {
-        // Initialization
         for (int i = 0; i < n; i++) {
             q.add(i + 1);
         }
@@ -20,6 +19,7 @@ public class 예상_대진표 {
             a = b;
             b = temp;
         }
+
         q.add(-1);
         int cnt = 0;
         while (!q.isEmpty()) {
