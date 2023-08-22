@@ -1,4 +1,4 @@
-package baekjoon.dynamic_programming;
+package baekjoon.divide_and_conquer;
 
 import java.util.Scanner;
 
