@@ -5,7 +5,7 @@
 
 - Language : Java
 - IDE : IntelliJ
-- Algorithm Source : Baekjoon, Inflearn
+- Algorithm Source : Baekjoon, Programmers
 
 ---
 
