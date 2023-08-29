@@ -4,27 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b9f14b22-beb7-4629-b5b8-b910ce9ce302" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/baekjoon/data_structure/_14425.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/baekjoon/data_structure/_1655.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/baekjoon/data_structure/_1717.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/baekjoon/data_structure/_3190.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/baekjoon/data_structure/_6549.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/baekjoon/data_structure/_9935.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/baekjoon/dynamic_programming/_1003.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/baekjoon/dynamic_programming/_1463.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/baekjoon/graph/_1991.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/programmers/lv2/가장_큰_수.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/programmers/test/_1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/programmers/test/_4.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/study/Assignment/Assignment3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/study/basic/union_find.java" afterDir="false" />
+    <list default="true" id="b9f14b22-beb7-4629-b5b8-b910ce9ce302" name="Changes" comment="solve (programmers) : LV2 가장 큰 수">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/programmers/test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/study/Assignment2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/study/Assignment/Assignment2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/study/_01.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/study/Assignment/Assignment1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/study/_01gpt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/study/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/study/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,21 +46,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/gundorit/IdeaProjects/algorithm/src/study&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/gundorit/IdeaProjects/algorithm/src/study",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editing.templates",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/study" />
@@ -457,6 +439,17 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="default file in intelliJ" />
@@ -473,7 +466,8 @@
     <MESSAGE value="Programmers Lv2 Solved" />
     <MESSAGE value="[Programmers] Solved LV2 Problems" />
     <MESSAGE value="Update .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update .gitignore" />
+    <MESSAGE value="solve (programmers) : LV2 가장 큰 수" />
+    <option name="LAST_COMMIT_MESSAGE" value="solve (programmers) : LV2 가장 큰 수" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -787,7 +781,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/study/Assignment/Assignment3.java</url>
           <line>50</line>
-          <properties class="study.Assignment3" method="declaration">
+          <properties class="study.Assignment.Assignment3">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -796,7 +790,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/study/Assignment/Assignment3.java</url>
           <line>162</line>
-          <properties class="study.Assignment3" method="var">
+          <properties class="study.Assignment.Assignment3">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
