@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class _9663 {
-
     static int[] col = new int[15];
     static int N;
     static int answer = 0;
