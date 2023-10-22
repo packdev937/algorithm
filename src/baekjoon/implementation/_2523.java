@@ -23,6 +23,7 @@ public class _2523 {
                 System.out.print("*");
             }
             System.out.println();
+
         }
     }
 }
