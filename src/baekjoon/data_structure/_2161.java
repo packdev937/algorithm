@@ -17,17 +17,14 @@ public class _2161 {
             deck.add(i + 1);
         }
 
-        while (true) {
+        while (!deck.isEmpty()) {
             sb.append(deck.poll() + " ");
-            int next = deck.poll();
-            if (deck.isEmpty()) {
-	sb.append(next + " ");
-	break;
+
+            if (!deck.isEmpty()) {
+	deck.add(deck.poll());
             }
-            deck.add(next);
         }
 
         System.out.println(sb.toString());
     }
-
 }
