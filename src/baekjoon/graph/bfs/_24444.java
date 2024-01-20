@@ -35,24 +35,28 @@ public class _24444 {
             int b = Integer.parseInt(st.nextToken());
             graph.get(a).add(b);
             graph.get(b).add(a);
-            Collections.sort(graph.get(a));
-            Collections.sort(graph.get(b));
+        }
+
+        // 모든 노드에 대해 한 번에 정렬
+        for (ArrayList<Integer> neighbours : graph) {
+            Collections.sort(neighbours);
         }
 
         Queue<Integer> queue = new LinkedList<>();
         queue.add(R);
+        visited[R] = true; // 시작점 방문 표시
         int cnt = 1;
+        count[R] = cnt++;
 
         while (!queue.isEmpty()) {
             int temp = queue.poll();
-            if (visited[temp]) {
-	continue;
-            }
-            visited[temp] = true;
-            count[temp] = cnt++;
-            for (int i = 0; i < graph.get(temp).size(); i++) {
-	int next = graph.get(temp).get(i);
-	queue.add(next);
+
+            for (int next : graph.get(temp)) {
+	if (!visited[next]) {
+	    visited[next] = true;
+	    queue.add(next);
+	    count[next] = cnt++;
+	}
             }
         }
 
