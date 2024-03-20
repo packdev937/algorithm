@@ -1,5 +1,7 @@
 package programmers.lv2;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class 수식_최대화 {
         return answer;
     }
 
-    private void backtraking(List<Long> numbers, List<Character> ops, char[] options, char[] current, boolean[] used, int depth) {
+    private void backtraking(List<Long> numbers, List<Character> ops, char[] allOps, char[] current, boolean[] used, int depth) {
         if (depth == 3) {
             answer = Math.max(answer, Math.abs(calculate(new ArrayList<>(numbers), new ArrayList<>(ops), current)));
             return;
@@ -36,8 +38,8 @@ public class 수식_최대화 {
         for (int i = 0; i < 3; i++) {
             if (!used[i]) {
 	used[i] = true;
-	current[depth] = options[i];
-	backtraking(numbers, ops, options, current, used, depth + 1);
+	current[depth] = allOps[i];
+	backtraking(numbers, ops, allOps, current, used, depth + 1);
 	used[i] = false;
             }
         }
@@ -61,6 +63,7 @@ public class 수식_최대화 {
     }
 
     public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         수식_최대화 test = new 수식_최대화();
         System.out.println(test.solution("100-200*300-500+20"));
     }
