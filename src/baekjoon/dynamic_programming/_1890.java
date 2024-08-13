@@ -1,3 +1,5 @@
+package baekjoon.dynamic_programming;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
