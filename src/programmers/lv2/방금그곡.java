@@ -1,76 +1,101 @@
 package programmers.lv2;
 
 import java.util.ArrayList;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
-
-class Music implements Comparable<Music> {
-    int time;
-    String title;
-    String code;
-    int index;
-
-    public Music(int time, String title, String code, int index) {
-        this.time = time;
-        this.title = title;
-        this.code = code;
-        this.index = index;
-    }
-
-    @Override
-    public int compareTo(Music o) {
-        if (this.time - o.time != 0)
-            return o.time - this.time;
-        return this.index - o.index;
-    }
-}
+import java.util.StringTokenizer;
 
 public class 방금그곡 {
-    public static String solution(String m, String[] musicinfos) {
-        String answer = "";
-        List<Music> musicList = new ArrayList<>();
-        int idx;
-        m = replaceShap(m);
+    class Info {
+        int minutes;
+        String title;
+        int index; // 음악이 들어온 순서를 기억하기 위해 추가
 
-        for (int i = 0; i < musicinfos.length; i++) {
-            int index = 0;
-            String[] sArr = musicinfos[i].split(",");
-            int playedTime = (int) ChronoUnit.MINUTES.between(LocalTime.parse(sArr[0]), LocalTime.parse(sArr[1]));
-            String title = sArr[2];
-            String code = sArr[3];
-            code = replaceShap(code);
-
-            String playedCode = "";
-            for (int j = 0; j < playedTime; j++) {
-                idx = j % code.length();
-                playedCode += code.charAt(idx);
-            }
-
-            if (playedCode.contains(m)) {
-                musicList.add(new Music(playedTime, title, code, index++));
-            }
+        public Info(int minutes, String title, int index) {
+            this.minutes = minutes;
+            this.title = title;
+            this.index = index;
         }
-        Collections.sort(musicList);
-
-        if (!musicList.isEmpty())
-            return musicList.get(0).title;
-        else return "(NONE)";
     }
 
-    public static String replaceShap(String code) {
-        code = code.replaceAll("C#", "c");
-        code = code.replaceAll("D#", "d");
-        code = code.replaceAll("F#", "f");
-        code = code.replaceAll("G#", "g");
-        code = code.replaceAll("A#", "a");
+    class Solution {
 
-        return code;
-    }
+        String cSharp = "X";
+        String dSharp = "Y";
+        String fSharp = "Z";
+        String gSharp = "K";
+        String aSharp = "L";
 
-    public static void main(String[] args) {
-        System.out.println(solution("ABCEFG", new String[]{"12:00,12:14,HELLO,C#DEFGAB", "13:00,13:05,WORLD,ABCDEF"}));
+        public String solution(String m, String[] musicinfos) {
+            List<Info> answers = new ArrayList<>();
+            m = replaceNote(m);
 
+            for (int i = 0; i < musicinfos.length; i++) {
+                StringTokenizer st = new StringTokenizer(musicinfos[i], ",");
+                int minutes = calculate(st.nextToken(), st.nextToken());
+                String title = st.nextToken();
+                String note = replaceNote(st.nextToken());
+
+                if (contain(m, minutes, note)) {
+                    answers.add(new Info(minutes, title, i));
+                }
+            }
+
+            // 재생 시간이 길고, 동일할 경우 먼저 입력된 순서로 정렬
+            Collections.sort(answers, (a, b) -> {
+                if (b.minutes == a.minutes) {
+                    return a.index - b.index; // 재생 시간이 같으면 먼저 입력된 순서
+                } else {
+                    return b.minutes - a.minutes; // 재생 시간이 긴 순서
+                }
+            });
+
+            if (answers.size() == 0) {
+                return "(None)";
+            }
+
+            return answers.get(0).title;
+        }
+
+        public boolean contain(String note, int minutes, String song) {
+            StringBuilder ori = new StringBuilder();
+            for (int i = 0; i < minutes / song.length(); i++) {
+                ori.append(song);
+            }
+
+            int remainLength = minutes % song.length();
+            if (remainLength > 0) {
+                ori.append(song.substring(0, remainLength));
+            }
+
+            return ori.toString().contains(note);
+        }
+
+        public int calculate(String start, String end) {
+            int startMinutes = getMinutes(start);
+            int endMinutes = getMinutes(end);
+
+            // 끝나는 시간이 시작 시간보다 작을 경우, 다음 날로 넘어간다.
+            return endMinutes >= startMinutes ? endMinutes - startMinutes : endMinutes + 1440 - startMinutes;
+        }
+
+        public int getMinutes(String time) {
+            StringTokenizer st = new StringTokenizer(time, ":");
+            int startHour = Integer.parseInt(st.nextToken());
+            int startMinute = Integer.parseInt(st.nextToken());
+
+            return startHour * 60 + startMinute;
+        }
+
+        public String replaceNote(String target) {
+            target = target.replaceAll("C#", cSharp);
+            target = target.replaceAll("D#", dSharp);
+            target = target.replaceAll("F#", fSharp);
+            target = target.replaceAll("G#", gSharp);
+            target = target.replaceAll("A#", aSharp);
+            target = target.replaceAll("B#", "M");
+
+            return target;
+        }
     }
 }
